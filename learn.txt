@@ -1,0 +1,5 @@
+CMD to create component in laravel
+- php artisan make:component ComponentName
+ex:     php artisan make:component  PostComponent => Class component
+- And for only view based component
+-> php artisan make:component PostComponent --view => It create view component inside resource view folder
