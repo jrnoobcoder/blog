@@ -15,7 +15,7 @@ class PostController extends Controller
     {
         
         $posts = Post::latest()->simplePaginate(10);
-        return view('dashboard', [
+        return view('post.index', [
             'posts' => $posts
         ]);
     }
@@ -25,7 +25,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('post.create')
+            ->with('categories', Category::all());
+            
     }
 
     /**
@@ -33,7 +35,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
