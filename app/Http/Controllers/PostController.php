@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Str;
 
 class PostController extends Controller
 {
@@ -35,7 +36,27 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $data = $request->validate([
+            'title' => 'required|max:255',
+            'excerpt' => 'required|max:500',
+            'content' => 'required',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'is_published' => 'nullable|boolean',
+            'published_at' => 'nullable|date',
+        ]);
+
+        $image = $data['image'] ?? null;
+        unset($data['image']);
+        $data['user_id'] = auth()->id();
+        $data['slug'] = Str::slug($data['title']);
+        
+        $imagePath = $image ? $image->store('images', 'public') : null;
+        $data['image'] = $imagePath;
+
+        $post = Post::create($data);
+        return redirect()->route('dashboard')
+            ->with('success', 'Post created successfully.');
     }
 
     /**

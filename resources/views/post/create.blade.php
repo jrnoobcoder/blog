@@ -12,6 +12,16 @@
                         <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus />
                         <x-input-error :messages="$errors->get('title')" class="mt-2" />
                     </div>
+                    <!-- Category -->
+                    <div class="mt-4">
+                        <x-input-label for="category_id" :value="__('Category')" />
+                        <select id="category_id" name="category_id" class="block mt-1 w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-300">
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('category_id')" class="mt-2" />  
+                    </div>
                     <!-- Excerpt -->
                     <div class="mt-4">
                         <x-input-label for="excerpt" :value="__('Excerpt')" />
@@ -24,16 +34,7 @@
                         <textarea id="content" name="content" rows="5" class="block mt-1 w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-300" placeholder="Enter content">{{ old('content') }}</textarea>
                         <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     </div>
-                    <!-- Category -->
-                    <div class="mt-4">
-                        <x-input-label for="category_id" :value="__('Category')" />
-                        <select id="category_id" name="category_id" class="block mt-1 w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-300">
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                        <x-input-error :messages="$errors->get('category_id')" class="mt-2" />  
-                    </div>
+                    
                     <!-- Image Upload -->
                     <div class="mt-4">
                         <x-input-label for="image" :value="__('Image')" />
