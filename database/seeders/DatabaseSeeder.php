@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             Category::create(['name' => $category]);
         }   
         //Category::factory(10)->create();
-        Post::factory(100)->create();
+        //Post::factory(100)->create();
 
     }
 }
