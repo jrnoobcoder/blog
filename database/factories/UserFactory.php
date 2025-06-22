@@ -23,8 +23,13 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->name();
         return [
             'name' => fake()->name(),
+            'username' => Str::slug($name, '_') . '_' . fake()->unique()->numberBetween(1, 1000),
+            'avatar' => fake()->imageUrl(640, 480, 'people', true, $name, true),
+            'bio' => fake()->sentence(10),
+            // Ensure the email is unique and safe 
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
