@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;    
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,6 +34,9 @@ class DatabaseSeeder extends Seeder
         }   
         //Category::factory(10)->create();
         //Post::factory(100)->create();
+       User::factory()->count(1)->create();
+
+
 
     }
 }
