@@ -34,8 +34,12 @@ class DatabaseSeeder extends Seeder
         }   
         //Category::factory(10)->create();
         //Post::factory(100)->create();
-       User::factory()->count(1)->create();
-
+       //User::factory()->count(1)->create();
+        User::factory()->create([
+            'name' => 'Admin User',
+            'username' => 'admin_user',
+            'email' => 'jrnoobcoder@gmail.com',
+        ] );
 
 
     }
