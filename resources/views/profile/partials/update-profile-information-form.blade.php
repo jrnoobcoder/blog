@@ -13,9 +13,27 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
+
+        @if($user->avatar)
+            <div class="mb-4">
+                <img src="{{ $user->avatar }}" alt="{{ $user->name }}'s avatar" class="w-24 h-24 rounded-full object-cover">
+            </div>
+        @endif
+        <!-- Image Upload -->
+        <div class="mt-4">
+            <x-input-label for="avatar" :value="__('Avatar')" />
+            <x-text-input id="avatar" type="file" name="avatar" accept="image/*" class="block mt-1 w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-300" />
+            <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
+        </div>
+
+        <div>
+            <x-input-label for="username" :value="__('Username')" />
+            <x-text-input id="username" name="username" type="text" class="mt-1 block w-full" :value="old('username', $user->username)" required autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('username')" />
+        </div>
 
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -45,6 +63,13 @@
                     @endif
                 </div>
             @endif
+        </div>
+
+        <!-- Bio -->    
+        <div class="mt-4">
+            <x-input-label for="bio" :value="__('Bio')" />
+            <textarea id="bio" name="bio" rows="5" class="block mt-1 w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-300" placeholder="Enter bio">{{ old('bio', $user->bio) }}</textarea>
+            <x-input-error :messages="$errors->get('bio')" class="mt-2" />
         </div>
 
         <div class="flex items-center gap-4">
