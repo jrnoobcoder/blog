@@ -1,6 +1,9 @@
 <div class="flex  bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 mb-8">
     <div class="p-5 flex-1">
-    <a href="#">
+    <a href="{{ route('post.show', [
+        'username' => $post->user->username,
+        'post' => $post->slug,
+    ]) }}" class="">   
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $post->title }}</h5>
     </a>
     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $post->excerpt }}</p>
