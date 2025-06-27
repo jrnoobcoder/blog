@@ -22,7 +22,9 @@
                 <a href="{{ route('post.create') }}" class="flex items-center">
                     <x-primary-button>Create Post</x-primary-button>
                 </a>
-                <!-- Settings Dropdown -->
+              
+            @auth
+                  <!-- Settings Dropdown -->
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
@@ -55,6 +57,19 @@
                         </x-slot>
                     </x-dropdown>
                 </div>
+            @endauth
+
+            @guest
+                <div class="hidden sm:flex sm:items-center sm:ms-6">
+                    <a href="{{ route('login') }}" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium">
+                        {{ __('Log In') }}
+                    </a>
+                    <a href="{{ route('register') }}" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium">
+                        {{ __('Register') }}
+                    </a>
+                </div>
+            @endguest
+
             </div>
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
@@ -68,6 +83,8 @@
         </div>
     </div>
 
+
+    @auth
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         {{-- <div class="pt-2 pb-3 space-y-1">
@@ -101,4 +118,5 @@
             </div>
         </div>
     </div>
+    @endauth
 </nav>

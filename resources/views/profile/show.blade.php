@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="flex gap-8 ">
-                    <div class="flex-1">
+                    <div class="flex-1 ">
                         <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $user->name }}'s Profile</h3>
                         <div class="mt-8">
                             @forelse ( $posts as $post )
@@ -22,7 +22,7 @@
                             @endforelse
                         </div>
                     </div>
-                    <div class="w-[320px]">
+                    <div class="w-[320px] border-l border-gray-200 dark:border-gray-700 pl-8">
                         <x-user-avatar :user="$user" size="w-24 h-24" class="w-24 h-24 rounded-full mb-4" />
                         <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $user->name }}</h1>
                         <p class="text-gray-600 dark:text-gray-400">{{ $user->username }}</p>
