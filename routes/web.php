@@ -17,6 +17,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
     Route::post('/post', [PostController::class, 'store'])->name('post.store');
     Route::get('/@{username}/{post:slug}', [PostController::class, 'show'])->name('post.show');
+    Route::post('/follow/{user}', [App\Http\Controllers\FollowerController::class, 'followUnfollow'])
+        ->name('follow')
+        ->where('user', '[0-9]+'); // Assuming user ID is numeric
 });
 
 Route::middleware('auth')->group(function () {
