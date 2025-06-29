@@ -22,25 +22,7 @@
                             @endforelse
                         </div>
                     </div>
-                    <div x-data="{ isFollowing: {{ $user->isFollowedBy(auth()->user()) ? 'true' : 'false' }}, 
-                        followersCount: {{ $user->followers()->count() }},
-                        follow() {
-                            this.isFollowing = !this.isFollowing
-                            axios.post('/follow/{{ $user->id }}', { 
-                                user_id: {{ $user->id }} 
-                            }).then(response => {
-                                console.log('Success:', response.data);
-                                this.followersCount = response.data.followersCount;
-                            }).catch(error => {
-                                console.error('Error:', error);
-                                alert('An error occurred while trying to follow/unfollow the user.');
-                               
-                            });
-                        }
-
-                    }"
-
-                        class="w-[320px] border-l border-gray-200 dark:border-gray-700 pl-8">
+                   <x-follow-ctr :user="$user" class="w-64 bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
                         <x-user-avatar :user="$user" size="w-24 h-24" class="w-24 h-24 rounded-full mb-4" />
                         <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $user->name }}</h1>
                         <p class="text-gray-600 dark:text-gray-400">{{ $user->username }}</p>
@@ -65,7 +47,7 @@
                             </button>
                         </div>
                         @endif
-                    </div>
+                    </x-follow-ctr>
                 </div>
             </div>
         </div>
