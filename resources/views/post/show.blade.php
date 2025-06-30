@@ -14,7 +14,6 @@
                                 x-text="isFollowing ? 'Unfollow' : 'Follow'"
                                 @click="follow()"
                                 :class="isFollowing ? 'text-red-600 hover:text-red-700' : 'text-blue-600 hover:text-blue-700'"
-                                @click="follow()"
                                 >
                                Follow
                             </button>
@@ -27,8 +26,8 @@
                         </div>
                     </div>
                 </div>
-              
-                <x-clap-button />
+
+                <x-clap-button :post="$post"/>
 
                 <div class="mt-4">
                     @if($post->image)
@@ -47,8 +46,7 @@
                         </span>
                     </div>
                 </div>
-                <x-clap-button />
-          
+                <x-clap-button :post="$post"/>
 
             </div>
             
