@@ -9,11 +9,19 @@ use App\Models\User;
 class ClapController extends Controller
 {
     public function clap(Post $post){
-        $post->claps()->create([
-            'user_id' => auth()->id(),
-        ]);
+
+        $hasClapped = auth()->user()->hasClapped($post);
+        if ($hasClapped) {
+            $post->claps()->where('user_id', auth()->id())->delete();
+        }else {
+            // If the user has not clapped, create a new clap
+            $post->claps()->create([
+                'user_id' => auth()->id(),
+            ]);
+        }
+
         return response()->json([
-            'message' => 'Clap added successfully',
+            'status'=> 'success',
             'clapsCount' => $post->claps()->count(),
         ]);
     }
