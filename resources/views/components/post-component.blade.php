@@ -7,7 +7,10 @@
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $post->title }}</h5>
     </a>
     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $post->excerpt }}</p>
-    <a href="#" >
+    <a href="{{ route('post.show', [
+        'username' => $post->user->username,
+        'post' => $post->slug,
+    ]) }}" >
         <x-primary-button>
             {{ __('Read More') }}
             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
