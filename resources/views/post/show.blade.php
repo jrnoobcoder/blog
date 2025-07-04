@@ -32,7 +32,7 @@
                 <x-clap-button :post="$post"/>
 
                 <div class="mt-4">
-                    @if($post->image)
+                    @if($post->postImgUrl())
                         <img src="{{ $post->postImgUrl() }}" alt="{{ $post->title }}" class="w-full h-auto rounded-lg mb-4">
                     @endif
                     <div class="mt-4">
