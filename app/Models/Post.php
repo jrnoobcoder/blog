@@ -5,14 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Storage;
-class Post extends Model
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Image\Enums\Fit;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+class Post extends Model implements HasMedia
 {
     use HasFactory;
+    use InteractsWithMedia;
     //
     protected $fillable = [
         'title',
         'slug',
-        'image',
+        //'image',
         'excerpt',
         'content',
         'category_id',
@@ -20,6 +26,16 @@ class Post extends Model
         'is_published',
         'published_at'
     ];
+
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('preview')
+            ->width(400);
+        $this->addMediaConversion('large')
+            ->width(1200);
+    }
+
 
     public function user()
     {
@@ -34,12 +50,18 @@ class Post extends Model
         return max(1,$readTime);
     }
 
-    public function postImgUrl()
+    public function postImgUrl($conversionName = ''): mixed
     {
-        if ($this->image) {
-            return(Storage::url($this->image));
+        //dd($this->getFirstMedia()->getUrl('preview'));
+       $media = $this->getFirstMedia();
+
+        if ($media) {
+            return $media->getUrl($conversionName);
         }
+
+        // Optionally return a fallback URL or null
         return null;
+          
     }
 
 

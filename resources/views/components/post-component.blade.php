@@ -21,7 +21,7 @@
     </a>
 </div>
 <a href="#">
-    <img class="w-56 h-full object-cover rounded-t-lg" src="{{ Storage::url($post->image) }}" alt="" />
+    <img class="w-56 h-full object-cover rounded-t-lg" src="{{  $post->postImgUrl('preview') }}" alt="" />
 </a>
 
 </div>
