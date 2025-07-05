@@ -17,9 +17,9 @@
         @csrf
         @method('patch')
 
-        @if($user->avatar)
+        @if($user->profileImage())
             <div class="mb-4">
-                <img src="{{ $user->avatar }}" alt="{{ $user->name }}'s avatar" class="w-24 h-24 rounded-full object-cover">
+                <img src="{{ $user->profileImage() }}" alt="{{ $user->name }}'s avatar" class="w-24 h-24 rounded-full object-cover">
             </div>
         @endif
         <!-- Image Upload -->

@@ -6,12 +6,15 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Storage;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -50,12 +53,26 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function profileImage(){
-        if ($this->avatar) {
-            return Storage::url($this->avatar);
-        }
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('avatar')
+        ->width(128)    
+        ->crop(128,128);
+        
+            
+    }
 
-        return null;
+    public function registerMediaCollections(?Media $media = null): void
+    {
+        $this->addMediaCollection('avatar')
+            ->singleFile();
+    }
+    public function profileImage(){
+       
+       return $this->getFirstMedia()?->getUrl('avatar');
+
+        // Optionally return a fallback URL or null
+        
     }
 
      public function posts(){
