@@ -56,7 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('avatar')
-        ->width(128)    
+        ->width(128) 
         ->crop(128,128);
         
             
@@ -68,7 +68,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
             ->singleFile();
     }
     public function profileImage(){
-       
+
+        dd($this->getFirstMedia('avatar'));
        return $this->getFirstMedia()?->getUrl('avatar');
 
         // Optionally return a fallback URL or null
